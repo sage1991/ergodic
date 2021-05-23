@@ -1,0 +1,18 @@
+{
+  "name": "ergodic",
+  "private": true,
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "lerna run build",
+    "build:watch": "lerna run build:watch",
+    "bootstrap": "lerna bootstrap --hoist"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}
