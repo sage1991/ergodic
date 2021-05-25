@@ -1,4 +1,6 @@
 import React, { FC } from "react";
+import { CSSTransition } from "react-transition-group";
+import { createUseStyles } from "react-jss";
 
 
 interface ToastProps {
@@ -6,9 +8,20 @@ interface ToastProps {
 }
 
 export const Toast: FC<ToastProps> = ({ children }) => {
+  const { toast } = useStyle();
   return (
-    <div>
-      { children }
-    </div>
+    <CSSTransition in timeout={300}>
+      <div className={toast}>
+        { children }
+      </div>
+    </CSSTransition>
   )
 }
+
+
+const useStyle = createUseStyles({
+  toast: {
+    border: "1px solid black",
+    padding: 10
+  }
+}, { name: "ergodic" })
