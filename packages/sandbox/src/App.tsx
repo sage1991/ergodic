@@ -8,10 +8,10 @@ export const App: FC = () => {
   useEffect(() => {
     setTimeout(() => {
       setShow(true)
-    }, 3000);
+    }, 3000)
     setTimeout(() => {
       setShow(false)
-    }, 6000);
+    }, 6000)
   }, [])
 
   return (

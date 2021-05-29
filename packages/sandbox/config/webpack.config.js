@@ -62,7 +62,7 @@ module.exports = (env) => {
         },
         {
           test: /.(ts|tsx|js|jsx)$/i,
-          exclude: /node_modules\/(?!(axios|@redux-saga|redux-logger))/,
+          exclude: /node_modules\/(?!(axios|@redux-saga|redux-logger|@ergodic))/,
           use: {
             loader: "babel-loader",
             options: {
