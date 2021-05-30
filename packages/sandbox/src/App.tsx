@@ -1,22 +1,17 @@
 import React, { FC, useEffect, useState } from "react";
-import { Toast } from "@ergodic/ui";
+import { ApplicationRoute } from "./components/common";
 
 
 export const App: FC = () => {
-  const [ show, setShow ] = useState<boolean>(false)
-
-  useEffect(() => {
-    setTimeout(() => {
-      setShow(true)
-    }, 3000)
-    setTimeout(() => {
-      setShow(false)
-    }, 6000)
-  }, [])
-
   return (
-    <div>
-      <Toast show={show}>hi</Toast>
-    </div>
+      <ApplicationRoute />
   )
 }
+
+// [ 1단계 ]
+// install react-route react-route-dom
+// lerna add react-router --scope=@ergodic/sandbox
+// lerna add react-router-dom --scope=@ergodic/sandbox
+
+// [ 2단계 ]
+// route 설정
