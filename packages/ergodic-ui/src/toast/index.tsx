@@ -2,14 +2,13 @@ import React, { CSSProperties, FC } from "react";
 import { CSSTransition } from "react-transition-group";
 import { createUseStyles } from "react-jss";
 import clsx from "clsx";
+import { PropsWithStyles } from "../types";
 
 
-interface ToastProps {
+interface ToastProps extends PropsWithStyles {
   show?: boolean;
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
   children: string;
-  className?: string;
-  style?: CSSProperties;
 }
 
 export const Toast: FC<ToastProps> = ({ show = true, onClick, className, style, children }) => {
