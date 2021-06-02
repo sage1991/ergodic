@@ -7,6 +7,7 @@
   "license": "ISC",
   "scripts": {
     "start": "webpack serve --open --config config/webpack.config.js",
+    "build": "webpack --config config/webpack.config.js --env production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -36,6 +37,7 @@
     "@types/react-transition-group": "^4.4.1",
     "@types/styled-components": "^5.1.9",
     "babel-loader": "^8.2.2",
+    "copy-webpack-plugin": "^9.0.0",
     "css-loader": "^5.2.6",
     "fork-ts-checker-webpack-plugin": "^6.2.10",
     "html-webpack-plugin": "^5.3.1",

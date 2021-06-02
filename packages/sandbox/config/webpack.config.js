@@ -1,6 +1,7 @@
 const path = require("path")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
+const CopyWebpackPlugin = require("copy-webpack-plugin")
 
 
 const resolvePath = (pathname) => path.resolve(__dirname, pathname)
@@ -103,6 +104,14 @@ module.exports = (env) => {
             semantic: true
           }
         }
+      }),
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            from: resolvePath("../public/assets/media"),
+            to: resolvePath("../dist/static/media")
+          }
+        ]
       })
     ]
   }
