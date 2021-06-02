@@ -21,39 +21,38 @@ export const App: FC = () => {
     <Page>
       <TabBar tabId={tabId} onTabIdChange={onTabIdChange}>
         <TabButton tabId={TabId.ONE}>
-          hello0hello0hello0hello0
+          tab1
         </TabButton>
         <TabButton tabId={TabId.TWO}>
-          hello1hello0hello0
+          tab2
         </TabButton>
         <TabButton tabId={TabId.THREE}>
-          hello2llo0
+          tab3
         </TabButton>
         <TabButton tabId={TabId.FOUR}>
-          hello3
+          tab4
         </TabButton>
         <TabButton tabId={TabId.FIVE}>
-          hello4hello0hello0hello0hello0hello0hello0
+          tab5
         </TabButton>
       </TabBar>
       <TabPanelControl tabId={tabId}>
         <TabPanel tabId={TabId.ONE}>
-          <StateTest />
+          this is tab 1
         </TabPanel>
         <TabPanel tabId={TabId.TWO}>
-          <StateTest />
+          this is tab 2
         </TabPanel>
         <TabPanel tabId={TabId.THREE}>
-          <StateTest />
+          this is tab 3
+        </TabPanel>
+        <TabPanel tabId={TabId.FOUR}>
+          this is tab 4
+        </TabPanel>
+        <TabPanel tabId={TabId.FIVE}>
+          this is tab 5
         </TabPanel>
       </TabPanelControl>
     </Page>
   );
-}
-
-const StateTest: FC = () => {
-  const [ state, setState ] = useState(0)
-  return (
-    <button onClick={() => setState(state + 1)}>{ state }</button>
-  )
 }
