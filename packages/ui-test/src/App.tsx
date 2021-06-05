@@ -1,5 +1,7 @@
-import React, { FC, useState } from 'react';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { Page, TabBar, TabButton, TabPanel, TabPanelControl } from "@ergodic/ui";
+import { Piano } from "./piano";
+import { KeyCode } from "./piano/KeyCode";
 
 
 enum TabId {
@@ -10,12 +12,47 @@ enum TabId {
   FIVE = "FIVE",
 }
 
+const piano = new Piano()
+const keys = "1234567890-=qwertyuiop[]asdfghjkl;'zxcvbnm,./"
+
+const map: any = {}
+keys.split("").forEach((value, index) => {
+  map[value] = index + 1
+})
+
 export const App: FC = () => {
-  const [ tabId, setTabId ] = useState<TabId>(TabId.ONE);
+
+  useEffect(() => {
+    window.addEventListener("keypress", (e: KeyboardEvent) => {
+      if (map[e.key]) {
+        piano.play(map[e.key])
+      }
+    })
+  }, [])
+
+  const [ tabId, setTabId ] = useState<TabId>(TabId.ONE)
 
   const onTabIdChange = (tabId: string) => {
     setTabId(tabId as TabId)
   }
+
+  const onButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const { keyCode } = (e.target as HTMLButtonElement).dataset;
+    piano.play(+keyCode! as KeyCode);
+  }
+
+  const buttons: ReactNode[] = []
+  for (let i = 0; i < 88; i++) {
+    buttons.push(
+      <button key={i}
+              onClick={onButtonClick}
+              data-key-code={i + 1}
+              style={{ display: "inline-block", width: 100, padding: 10, marginRight: 10 }}>
+        { i + 1 }
+      </button>
+    )
+  }
+
 
   return (
     <Page>
@@ -38,7 +75,15 @@ export const App: FC = () => {
       </TabBar>
       <TabPanelControl tabId={tabId}>
         <TabPanel tabId={TabId.ONE}>
-          this is tab 1
+          <button onClick={() => {
+            piano.init().then(() => {
+              console.log("piano is ready")
+              piano.play(KeyCode.C_5);
+              piano.play(KeyCode.E_5);
+              piano.play(KeyCode.G_5);
+            })
+          }}>let's play piano</button>
+          { buttons }
         </TabPanel>
         <TabPanel tabId={TabId.TWO}>
           this is tab 2
