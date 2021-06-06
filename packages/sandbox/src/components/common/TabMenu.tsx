@@ -6,7 +6,6 @@ import { Food } from "../../pages/food";
 
 enum TabId {
     FOOD = "FOOD",
-    CORONA = "CORONA",
     PIANO = "PIANO"
 }
 
@@ -23,9 +22,6 @@ const TabMenu = () => {
                 <TabButton tabId={TabId.FOOD}>
                    음식 정하기
                 </TabButton>
-                <TabButton tabId={TabId.CORONA}>
-                    코로나
-                </TabButton>
                 <TabButton tabId={TabId.PIANO}>
                    피아노
                 </TabButton>
@@ -33,9 +29,6 @@ const TabMenu = () => {
             <TabPanelControl tabId={tabId}>
                 <TabPanel tabId={TabId.FOOD}>
                     <Food />
-                </TabPanel>
-                <TabPanel tabId={TabId.CORONA}>
-                    준비중입니다
                 </TabPanel>
                 <TabPanel tabId={TabId.PIANO}>
                     준비중이에요
