@@ -1,50 +1,81 @@
-import { KeyCode } from "./KeyCode";
+import { getKeyCodeSet, KeyCode } from "./KeyCode";
 import axios from "axios";
 import { PianoKey } from "./PianoKey";
 
 
+interface KeySoundSource {
+  code: KeyCode;
+  source: Blob;
+}
+
+
+let pressed: number
+
 export class Piano {
   private audio = new AudioContext()
-  private keys: Map<KeyCode, PianoKey> = new Map()
-  private initDone: boolean = false
+  private keyMap: Map<KeyCode, PianoKey> = new Map()
+  private isInitialized: boolean = false
 
   async init() {
-    if (this.initDone) return
+    if (this.isInitialized) return
 
-    const keyCodes: number[] = []
-    for (let i = 0; i < 88; i++) {
-      keyCodes.push(i + 1);
-    }
+    // load sound file from server
+    const sources: KeySoundSource[] = await Promise.all(getKeyCodeSet().map(loadSoundSource))
 
-    const sources = await Promise.all(keyCodes.map(code => {
+    await Promise.all(sources.map(({ source, code }) => {
       return (
-        axios
-          .request<Blob>({
-            url: `/assets/media/${code}.mp3`,
-            method: "get",
-            responseType: "blob"
-          })
-          .then(({ data }) => {
-            return { code, data }
+        source
+          .arrayBuffer()
+          .then(buffer => this.audio.decodeAudioData(buffer))
+          .then(audio => {
+            const pianoKey = new PianoKey(code, this.audio.destination, audio)
+            this.keyMap.set(code, pianoKey)
           })
       )
     }))
 
-    for (let i = 0; i < sources.length; i++) {
-      const arrayBuffer: ArrayBuffer = await sources[i].data.arrayBuffer()
-      const audioBuffer: AudioBuffer = await this.audio.decodeAudioData(arrayBuffer)
-      this.keys.set(
-        sources[i].code as KeyCode,
-        new PianoKey(sources[i].code as KeyCode, this.audio.destination, audioBuffer)
-      )
-    }
-
-    this.initDone = true
+    this.isInitialized = true
     return this.audio.resume()
   }
 
   play(keyCode: KeyCode) {
-    const pianoKey = this.keys.get(keyCode)
+    if (pressed) {
+      Date.now() - pressed > 1000 && this.muteAll()
+    }
+    pressed = Date.now()
+
+    const pianoKey = this.keyMap.get(keyCode)
     if (pianoKey) pianoKey.play();
   }
+
+  mute(keyCode: KeyCode) {
+    const pianoKey = this.keyMap.get(keyCode)
+    if (pianoKey) pianoKey.mute();
+  }
+
+  muteAll() {
+    getKeyCodeSet().forEach((code) => {
+      this.mute(code)
+    })
+  }
+}
+
+
+const loadSoundSource = (code: KeyCode): Promise<KeySoundSource> => {
+  return (
+    loadFile(`${code}.mp3`)
+      .then((source) => ({ code, source }))
+  )
+}
+
+const loadFile = (fileName: string): Promise<Blob> => {
+  return (
+    axios
+      .request<Blob>({
+        url: `/assets/media/${fileName}`,
+        method: "get",
+        responseType: "blob"
+      })
+      .then((response) => response.data)
+  )
 }

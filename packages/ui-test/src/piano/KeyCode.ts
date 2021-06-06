@@ -90,3 +90,12 @@ export enum KeyCode {
   D_8,
   D_8_SHARP,
 }
+
+
+export const getKeyCodeSet = (): KeyCode[] => {
+  return (
+    Object
+      .values(KeyCode)
+      .filter((value) => typeof value === "number") as KeyCode[]
+  )
+}
