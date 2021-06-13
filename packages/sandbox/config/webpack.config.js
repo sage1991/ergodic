@@ -6,7 +6,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin")
 
 const resolvePath = (pathname) => path.resolve(__dirname, pathname)
 const TARGET_PATH = resolvePath("../dist")
-const INDEX_FILE_PATH = resolvePath("../src/index.ts")
+const INDEX_FILE_PATH = resolvePath("../src/index.tsx")
 const TEMPLATE_HTML_PATH = resolvePath("../public/index.html")
 const BABEL_CONFIG_FILE_PATH = resolvePath("./babel.config.json")
 

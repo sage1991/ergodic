@@ -41,14 +41,14 @@ export const RandomFoodRaffle: FC = () => {
 
 
     return (
-        <div className={root}>
-            <div className={clsx(container)}>
+        <div className={root} >
+            <div className={container}>
                 {"오늘 뭐 먹지?😜"}
             </div>
-            <div className={clsx(container)}>
+            <div className={container}>
                 {"오늘 "} <TextTransition text={randomMenu} inline noOverflow className={menu}/> {" 어때요?"}
             </div>
-            <div className={clsx(btnContainer)}>
+            <div className={btnContainer + "."}>
                 <Button className={btn} onClick={() => onHandleRandomMenu(1)}>{"아무거나"}</Button>
                 <Button className={btn} onClick={() => onHandleRandomMenu(2)}>{"한식"}</Button>
                 <Button className={btn} onClick={() => onHandleRandomMenu(3)}>{"중식"}</Button>

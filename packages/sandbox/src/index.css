@@ -52,3 +52,20 @@ html, body {
     justify-content: space-evenly;
 }
 
+
+
+.pieTranslate {
+    animation-name:spinCircle;
+    animation-duration:.8s;
+    animation-iteration-count:infinite;
+}
+
+/* CSS */
+@keyframes spinCircle {
+    from {
+        transform:translate(-50%, -50%) rotate(0);
+    }
+    to {
+        transform:translate(-50%, -50%) rotate(360deg);
+    }
+}

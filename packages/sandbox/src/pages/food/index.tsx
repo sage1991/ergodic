@@ -10,7 +10,6 @@ export const Food = () => {
         <>
             <RandomFoodRaffle/>
             <RandomFoodRoulette title="베스트 메뉴 Top10 룰렛"/>
-            <RandomFoodRoulette title="내가 만든 룰렛"/>
         </>
     )
 }
