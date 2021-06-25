@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useEffect, useRef, forwardRef } from "react";
 import { createUseStyles } from "react-jss";
 import clsx from "clsx";
 
@@ -18,7 +18,8 @@ interface PieProps {
 
 }
 
-const Pie: FC<PieProps> = (props) => {
+const Pie: FC<PieProps> = ((props) => {
+    console.log(props);
     const { infos, isTranslate } = props;
     const canvasRef = useRef<HTMLCanvasElement>(null)
     useEffect(() => {
@@ -55,13 +56,16 @@ const Pie: FC<PieProps> = (props) => {
     }
 
     return (
-        <canvas ref={canvasRef}
-                width={500}
-                height={500}
-                className={clsx(classes.root, isTranslate ? ".pieTranslate" : "")}>
-        </canvas>
+        <div className={isTranslate? "pieTranslate" : ""}>
+            <canvas ref={canvasRef}
+                    width={500}
+                    height={500}
+                    className={clsx(classes.root)}>
+            </canvas>
+        </div>
+
     )
-}
+})
 
 const useStyle = createUseStyles({
     root: {

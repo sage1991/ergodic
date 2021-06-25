@@ -1,9 +1,12 @@
-import React, { CanvasHTMLAttributes, FC, LegacyRef, MutableRefObject, useEffect, useRef, useState } from "react";
+import React, {
+    FC,
+    useEffect,
+    useRef,
+    useState
+} from "react";
 import { createUseStyles } from "react-jss";
 import Pie from "../common/Pie";
 import styled from "styled-components";
-import "../../pages/food/index.module.css"
-
 
 
 const Button = styled.button`
@@ -30,6 +33,7 @@ export const RandomFoodRoulette: FC<RandomFoodRouletteProps> = ({title}) => {
     const { root } = useStyle();
     const elementRef = useRef<HTMLCanvasElement>(null);
     const [ isClick, setClick ] = useState<boolean>(false);
+
     const topMenuList = [
         { title: "피자", color: "#F25E6B", x: 250, y: 250 },
         { title: "삼겹살", color: "#A62182", x: 0, y: 0 },
@@ -57,7 +61,7 @@ export const RandomFoodRoulette: FC<RandomFoodRouletteProps> = ({title}) => {
         <div className={root}>
             <div>{title}</div>
             <Button onClick={onHandleRoulette} >룰렛돌리기</Button>
-            <Pie infos={topMenuList} isTranslate={isClick}/>
+            <Pie infos={topMenuList} isTranslate={isClick} />
         </div>
 
     )

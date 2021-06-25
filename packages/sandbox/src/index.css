@@ -55,13 +55,14 @@ html, body {
 
 
 .pieTranslate {
-    animation-name:spinCircle;
-    animation-duration:.8s;
-    animation-iteration-count:infinite;
+
+    animation: 2.6s cubic-bezier(0.71, -0.29, 0.96, 0.9) 0s 1 normal forwards running spin,
+    0.75s linear 2.6s 1 normal forwards running continueSpin,
+    8s cubic-bezier(0, 0, 0.35, 1.02) 3.35s 1 normal forwards running stopSpin
 }
 
 /* CSS */
-@keyframes spinCircle {
+@keyframes spin {
     from {
         transform:translate(-50%, -50%) rotate(0);
     }
@@ -69,3 +70,41 @@ html, body {
         transform:translate(-50%, -50%) rotate(360deg);
     }
 }
+
+
+@keyframes spin {
+    0% {
+        transform: rotate(88.8132deg)
+    }
+    100% {
+        transform: rotate(448.813deg);
+
+    }
+}
+
+
+@keyframes continueSpin {
+    0% {
+        transform: rotate(88.8132deg)
+    }
+    100% {
+        transform: rotate(448.813deg);
+
+    }
+}
+@keyframes stopSpin {
+    0% {
+        transform: rotate(88.8132deg)
+    }
+    100% {
+        transform: rotate(448.813deg);
+
+    }
+}
+
+/*
+
+
+rotate(-137.493deg)√
+
+*/
