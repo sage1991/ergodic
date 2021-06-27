@@ -1,58 +1,103 @@
-import React, { FC, ReactNode, useRef, useState } from "react";
+import React, { FC, ReactNode, useCallback, useRef, useState } from "react";
 import { createUseStyles } from "react-jss";
-import { CSSTransition } from "react-transition-group";
 
+
+interface RippleState {
+  id: number;
+  ripple: ReactNode;
+}
 
 export const RippleBase: FC = () => {
-  const { root, ripple, rippleEnter, rippleEnterActive } = useStyle()
-  const [ ripples, setRipples ] = useState<ReactNode[]>([])
+  const { root } = useStyle()
+  const [ ripples, setRipples ] = useState<RippleState[]>([])
   const ref = useRef<HTMLSpanElement>(null);
+
+  const onRippleEnd = useCallback((id: number) => {
+    setRipples((prev) => {
+      return prev.filter(state => state.id !== id)
+    })
+  }, [ setRipples ])
 
   const onClick = (e: React.MouseEvent) => {
     const { clientX, clientY } = e
     if (!ref.current) return
-    const { width, height } = ref.current.getBoundingClientRect()
 
-    const size = Math.max(clientY, clientX);
-    console.log(size);
-
+    const { width, height, left, top } = ref.current.getBoundingClientRect()
+    const rippleX = Math.round(clientX - left)
+    const rippleY = Math.round(clientY - top)
+    const size = Math.max(width * 2, height * 2)
+    const id = Date.now()
+    const ripple = <Ripple key={id} id={id} size={size}
+                           rippleX={rippleX} rippleY={rippleY}
+                           onRippleEnd={onRippleEnd} />
     setRipples((prev) => [
       ...prev,
-      <CSSTransition key={Date.now()} timeout={300}
-                     classNames={{ enter: rippleEnter, enterActive: rippleEnterActive }}
-                     onEntered={() => {
-
-                     }}>
-        <span className={ripple} style={{ width: "100%", height: "100%", left: clientX, top: clientY }} />
-      </CSSTransition>
+      { id, ripple }
     ])
   }
 
   return (
     <span ref={ref} className={root} onClick={onClick}>
-      { ripples }
+      { ripples.map(state => state.ripple) }
     </span>
   )
 }
 
+
+interface RippleProps {
+  id: number;
+  size: number;
+  rippleX: number;
+  rippleY: number;
+  onRippleEnd: (id: number) => void;
+}
+
+const Ripple: FC<RippleProps> = ({ id, size, rippleX, rippleY, onRippleEnd }) => {
+  const { ripple } = useStyle()
+
+  const onAnimationEnd = () => {
+    onRippleEnd(id);
+  }
+
+  return (
+      <span className={ripple}
+            style={{ width: size, height: size, left: rippleX - (size / 2), top: rippleY - (size / 2) }}
+            onAnimationEnd={onAnimationEnd} />
+  )
+}
+
+
 const useStyle = createUseStyles({
   root: {
     position: "absolute",
+    left: 0,
+    top: 0,
     width: "100%",
     height: "100%",
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
+    overflow: "hidden"
   },
   ripple: {
     position: "absolute",
-    backgroundColor: "rgba(0, 0, 0, 0.2)"
+    backgroundColor: "rgba(0, 0, 0, 0.1)",
+    borderRadius: "50%",
+    animation: "$ripple 500ms linear",
+    animationFillMode: "forwards"
   },
-  rippleEnter: {
-    transform: "scale(0)",
-    opacity: 1
-  },
-  rippleEnterActive: {
-    transform: "scale(1)",
-    opacity: 0,
-    transition: "transform 300ms, opacity 300ms"
+  "@keyframes ripple": {
+    "0%": {
+      transform: "scale(0)",
+      opacity: 0,
+    },
+    "50%": {
+      opacity: 1,
+    },
+    "70%": {
+      transform: "scale(0.9)",
+    },
+    "100%": {
+      transform: "scale(1)",
+      opacity: 0,
+    }
   }
-}, { name: "ergodic-ripple-base" })
+}, { name: "ergodic-ripple" })
