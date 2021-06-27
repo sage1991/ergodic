@@ -1,7 +1,6 @@
 import React, { FC, useState } from "react";
 import TextTransition from "react-text-transition";
 import { createUseStyles } from "react-jss";
-import clsx from "clsx";
 import styled from "styled-components";
 
 const Button  = styled.button`
@@ -10,12 +9,12 @@ const Button  = styled.button`
     height: 30px;
     text-align: center;
     border-radius: 5px;
-    border: 1px solid #cecece;
-    border-color: #ffc2d0;
+    border: 1px solid black;
+    border-color: black;
     color: #ffffff;
-    background-color: #ffc3d0;
+    background-color: #ff8fa9;
     &:hover {
-      background-color: #ff8fa9;
+      background-color: #FF5C82;
       color: #ffffff;
     }
 `
@@ -38,7 +37,7 @@ export const RandomFoodRaffle: FC = () => {
         else if (num === 4) setRandomMenu(menuList_04[value]);
         else setRandomMenu(menuList_05[value]);
     }
-
+    console.log(btnContainer)
 
     return (
         <div className={root} >
@@ -48,7 +47,7 @@ export const RandomFoodRaffle: FC = () => {
             <div className={container}>
                 {"오늘 "} <TextTransition text={randomMenu} inline noOverflow className={menu}/> {" 어때요?"}
             </div>
-            <div className={btnContainer + "."}>
+            <div className={btnContainer}>
                 <Button className={btn} onClick={() => onHandleRandomMenu(1)}>{"아무거나"}</Button>
                 <Button className={btn} onClick={() => onHandleRandomMenu(2)}>{"한식"}</Button>
                 <Button className={btn} onClick={() => onHandleRandomMenu(3)}>{"중식"}</Button>
@@ -63,7 +62,6 @@ export const RandomFoodRaffle: FC = () => {
 const useStyle = createUseStyles({
     root: {
         padding: 20,
-        backgroundColor: "#cee9e7"
     },
     container: {
         display: "flex",
@@ -74,18 +72,19 @@ const useStyle = createUseStyles({
     },
     btnContainer: {
         display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
+        justifyContent: "center",
         marginBottom: 20,
     },
     btn: {
-        marginBottom: 5
+        marginBottom: 5,
+        marginLeft: 5
     },
     menu: {
         fontSize: 26,
         fontWeight: "bold",
         marginLeft: "10px",
         marginRight: "10px",
+        boxShadow: "inset 0 -10px rgba(255, 255, 0, .2), inset 0 -10px #fca411"
     }
 
 })

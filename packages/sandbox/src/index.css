@@ -55,29 +55,29 @@ html, body {
 
 
 .pieTranslate {
-
-    animation: 2.6s cubic-bezier(0.71, -0.29, 0.96, 0.9) 0s 1 normal forwards running spin,
-    0.75s linear 2.6s 1 normal forwards running continueSpin,
-    8s cubic-bezier(0, 0, 0.35, 1.02) 3.35s 1 normal forwards running stopSpin
+    /*animation: 2.6s cubic-bezier(0.71, -0.29, 0.96, 0.9) 0s 1 normal forwards running spin,*/
+    /*0.75s linear 2.6s 1 normal forwards running continueSpin,*/
+    /*8s cubic-bezier(0, 0, 0.35, 1.02) 3.35s 1 normal forwards running stopSpin;*/
+    transition: transform 5s;
+    transform: rotate(4999deg);
 }
 
-/* CSS */
-@keyframes spin {
-    from {
-        transform:translate(-50%, -50%) rotate(0);
-    }
-    to {
-        transform:translate(-50%, -50%) rotate(360deg);
-    }
+.roulette {
+    position: relative;
 }
 
+.food {
+    min-width: 534px;
+    height: 100%;
+    background-color: #cee9e7;
+}
 
 @keyframes spin {
     0% {
-        transform: rotate(88.8132deg)
+        transform: rotate(0deg)
     }
     100% {
-        transform: rotate(448.813deg);
+        transform: rotate(360deg);
 
     }
 }
@@ -85,19 +85,21 @@ html, body {
 
 @keyframes continueSpin {
     0% {
-        transform: rotate(88.8132deg)
+        transform: rotate(0deg)
     }
     100% {
-        transform: rotate(448.813deg);
+        transform: rotate(360deg);
 
     }
 }
+
+
 @keyframes stopSpin {
     0% {
-        transform: rotate(88.8132deg)
+        transform: rotate(360deg)
     }
     100% {
-        transform: rotate(448.813deg);
+        transform: rotate(0deg);
 
     }
 }

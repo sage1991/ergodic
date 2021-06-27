@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, forwardRef } from "react";
+import React, { FC, useEffect, useRef, forwardRef, useState } from "react";
 import { createUseStyles } from "react-jss";
 import clsx from "clsx";
 
@@ -8,19 +8,32 @@ import clsx from "clsx";
 interface PieInfos {
     title: string;
     color: string;
-    x: number;
-    y: number;
 }
 
 interface PieProps {
     infos: PieInfos[],
-    isTranslate?: boolean;
+    degree: number
 
 }
+import styled from "styled-components";
+import DotButton from "../../assets/image/dotButton.png";
+
+const Button = styled.button`
+    background-image: url('${DotButton}');
+    width: 80px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    right: 10%;
+   
+`
 
 const Pie: FC<PieProps> = ((props) => {
-    console.log(props);
-    const { infos, isTranslate } = props;
+    const { infos, degree } = props;
     const canvasRef = useRef<HTMLCanvasElement>(null)
     useEffect(() => {
         draw()
@@ -55,13 +68,18 @@ const Pie: FC<PieProps> = ((props) => {
         }
     }
 
+
+
     return (
-        <div className={isTranslate? "pieTranslate" : ""}>
-            <canvas ref={canvasRef}
-                    width={500}
-                    height={500}
-                    className={clsx(classes.root)}>
-            </canvas>
+        <div className="roulette">
+            <div style={{transform: `rotate(${degree}deg)`, transition: "transform 5s" }}>
+                <canvas ref={canvasRef}
+                        width={500}
+                        height={500}
+                        className={clsx(classes.root)}>
+                </canvas>
+            </div>
+            <Button className="dotButton" />
         </div>
 
     )
@@ -72,6 +90,7 @@ const useStyle = createUseStyles({
         display: "block",
         margin: "0 auto"
     }
+
 })
 
 
