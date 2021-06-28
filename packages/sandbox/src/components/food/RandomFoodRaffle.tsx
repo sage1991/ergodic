@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import TextTransition from "react-text-transition";
 import { createUseStyles } from "react-jss";
 import styled from "styled-components";
+import { RippleBase } from "@ergodic/ui/dist/ripple";
 
 const Button  = styled.button`
     padding: 5px;
@@ -13,10 +14,6 @@ const Button  = styled.button`
     border-color: black;
     color: #ffffff;
     background-color: #ff8fa9;
-    &:hover {
-      background-color: #FF5C82;
-      color: #ffffff;
-    }
 `
 
 export const RandomFoodRaffle: FC = () => {
@@ -48,11 +45,26 @@ export const RandomFoodRaffle: FC = () => {
                 {"오늘 "} <TextTransition text={randomMenu} inline noOverflow className={menu}/> {" 어때요?"}
             </div>
             <div className={btnContainer}>
-                <Button className={btn} onClick={() => onHandleRandomMenu(1)}>{"아무거나"}</Button>
-                <Button className={btn} onClick={() => onHandleRandomMenu(2)}>{"한식"}</Button>
-                <Button className={btn} onClick={() => onHandleRandomMenu(3)}>{"중식"}</Button>
-                <Button className={btn} onClick={() => onHandleRandomMenu(4)}>{"일식"}</Button>
-                <Button className={btn} onClick={() => onHandleRandomMenu(5)}>{"양식"}</Button>
+                <Button className={btn} onClick={() => onHandleRandomMenu(1)}>
+                    <RippleBase/>
+                    {"아무거나"}
+                </Button>
+                <Button className={btn} onClick={() => onHandleRandomMenu(2)}>
+                    <RippleBase/>
+                    {"한식"}
+                </Button>
+                <Button className={btn} onClick={() => onHandleRandomMenu(3)}>
+                    <RippleBase/>
+                    {"중식"}
+                </Button>
+                <Button className={btn} onClick={() => onHandleRandomMenu(4)}>
+                    <RippleBase/>
+                    {"일식"}
+                </Button>
+                <Button className={btn} onClick={() => onHandleRandomMenu(5)}>
+                    <RippleBase/>
+                    {"양식"}
+                </Button>
             </div>
         </div>
 
@@ -77,7 +89,8 @@ const useStyle = createUseStyles({
     },
     btn: {
         marginBottom: 5,
-        marginLeft: 5
+        marginLeft: 5,
+        position: "relative"
     },
     menu: {
         fontSize: 26,

@@ -7,6 +7,7 @@ import React, {
 import { createUseStyles } from "react-jss";
 import Pie from "../common/Pie";
 import styled from "styled-components";
+import { RippleBase } from "@ergodic/ui/dist/ripple";
 
 const Button = styled.button`
     padding: 5px;
@@ -17,10 +18,6 @@ const Button = styled.button`
     color: black;
     background-color: #2B79FC;
     color: white;
-    &:hover {
-      background-color: #2260c9;
-      color: #efefef;
-    }
     margin: 20px 0 20px;
     width: 30%  
 `
@@ -30,7 +27,7 @@ interface RandomFoodRouletteProps {
 }
 
 export const RandomFoodRoulette: FC<RandomFoodRouletteProps> = ({title}) => {
-    const { root, titleLabel } = useStyle();
+    const { root, titleLabel,btn } = useStyle();
     const elementRef = useRef<HTMLCanvasElement>(null);
     const [ isClick, setClick ] = useState<boolean>(false);
     const [ deg, setDeg ] = useState<number>(0)
@@ -62,7 +59,10 @@ export const RandomFoodRoulette: FC<RandomFoodRouletteProps> = ({title}) => {
     return (
         <div className={root}>
             <div className={titleLabel}>{title}</div>
-            <Button onClick={onHandleRoulette}>{"룰렛 돌리기"}</Button>
+            <Button onClick={onHandleRoulette} className={btn}>
+                <RippleBase/>
+                {"룰렛 돌리기"}
+            </Button>
             <Pie infos={topMenuList} degree={deg} />
         </div>
 
@@ -81,5 +81,8 @@ const useStyle = createUseStyles({
         color: "black",
         fontWeight: 500,
         fontSize: 28
+    },
+    btn: {
+        position: "relative"
     }
 })
