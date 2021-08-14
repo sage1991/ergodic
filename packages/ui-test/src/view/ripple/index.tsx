@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import "./index.css";
 import { RippleBase } from "@ergodic/ui/dist/ripple";
+import "./index.css";
 
 
 export const RippleTab: FC = () => {
