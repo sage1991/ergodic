@@ -34,7 +34,6 @@ export const RandomFoodRaffle: FC = () => {
         else if (num === 4) setRandomMenu(menuList_04[value]);
         else setRandomMenu(menuList_05[value]);
     }
-    console.log(btnContainer)
 
     return (
         <div className={root} >
