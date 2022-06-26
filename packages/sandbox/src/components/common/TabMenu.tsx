@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Tab, { Page, TabBar, TabButton, TabPanel, TabPanelControl } from "@ergodic/ui"
 import { Food } from "../../pages/food";
-import { Piano } from "../../pages/piano";
 import { PianoTab } from "@ergodic/ui-test/src/view/piano";
 
 
@@ -13,7 +12,7 @@ enum TabId {
 
 const TabMenu = () => {
 
-    const [ tabId, setTabId ] = useState<TabId>(TabId.FOOD)
+    const [ tabId, setTabId ] = useState<TabId>(TabId.PIANO)
 
     const onTabIdChange = (tabId: string) => {
         setTabId(tabId as TabId)
