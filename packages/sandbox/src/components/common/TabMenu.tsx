@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Tab, { Page, TabBar, TabButton, TabPanel, TabPanelControl } from "@ergodic/ui"
 import { Food } from "../../pages/food";
 import { Piano } from "../../pages/piano";
+import { PianoTab } from "@ergodic/ui-test/src/view/piano";
 
 
 
@@ -32,7 +33,7 @@ const TabMenu = () => {
                     <Food />
                 </TabPanel>
                 <TabPanel tabId={TabId.PIANO}>
-                    <Piano />
+                    <PianoTab />
                 </TabPanel>
             </TabPanelControl>
         </>
